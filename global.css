@@ -1,0 +1,42 @@
+body {
+  font: 100%/1.5 system-ui, sans-serif;
+  display: flex;
+  flex-flow: column;
+  max-width: 80em;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: auto;
+  padding: 1em;
+}
+
+header {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  align-items: baseline;
+
+  h1 {
+    margin-right: 0px;
+    font-size: 2rem;
+    color: steelblue;
+  }
+
+  header label {
+    margin-left: auto;
+  }
+
+  input[type="range"] {
+    width: 400px;
+    accent-color: coral;
+  }
+
+  time {
+    font-weight: 600;
+    font-size: 1.25em;
+  }
+
+  em {
+    font-size: 1em;
+    color: #666;
+  }
+}
