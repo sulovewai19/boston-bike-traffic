@@ -10,32 +10,39 @@ body {
 }
 
 #map {
-  width: 100%; 
-  height: 100%; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  border-radius: 8px; 
+  width: 100%;
+  height: 100%;
+  position: relative; /* so SVG absolute works correctly */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
+/* SVG overlay */
 #map svg {
   position: absolute;
+  top: 0;
+  left: 0;
   z-index: 1;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-
-  circle {
-    pointer-events: auto;
-    --color-departures: steelblue;
-    --color-arrivals: darkorange;
-    --color: color-mix(
-      in oklch,
-      var(--color-departures) calc(100% * var(--departure-ratio)),
-      var(--color-arrivals)
-    );
-    fill: var(--color);
-  }
+  pointer-events: none; /* default: SVG ignores mouse events */
 }
 
+/* Circles must override pointer-events */
+#map svg circle {
+  pointer-events: auto;
+
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+  fill: var(--color);
+}
+
+/* Legend styling */
 .legend {
   display: flex;
   justify-content: center;
@@ -44,23 +51,22 @@ body {
   margin: 0.5em auto;
   font-size: 0.9rem;
   width: 100%;
-  div {
-    --color-departures: steelblue;
-    --color-arrivals: darkorange;
-    --color: color-mix(
-      in oklch,
-      var(--color-departures) calc(100% * var(--departure-ratio)),
-      var(--color-arrivals)
-    );
+}
 
-    flex: 1;
-    text-align: center;
-    border-radius: 0.25em;
-    gap: 1px;
-    font-weight: 500;
-    padding: 0.25em 0.5em;
-    background-color: var(--color);
-    color: white;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-  }
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+
+  flex: 1;
+  text-align: center;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  background-color: var(--color);
+  color: white;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
